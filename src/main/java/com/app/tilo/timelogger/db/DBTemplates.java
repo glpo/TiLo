@@ -25,6 +25,13 @@ public class DBTemplates {
         sdb.close();
     }
 
+    public void deleteCategory(String name) {
+        SQLiteDatabase sdb = dbHelper.getWritableDatabase();
+
+        sdb.delete(DBHelper.CATEGORIES_DATABASE_TABLE, DBHelper.CATEGORY_NAME_COLUMN + " = ?", new String[] {name});
+        sdb.close();
+    }
+
     public List<String> getAllCategories() {
         SQLiteDatabase sdb = dbHelper.getWritableDatabase();
 

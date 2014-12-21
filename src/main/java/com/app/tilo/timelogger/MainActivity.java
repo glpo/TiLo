@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.app.tilo.timelogger.adapter.CheckboxListAdapter;
+import com.app.tilo.timelogger.db.DBTemplates;
 import com.app.tilo.timelogger.model.CategoryElement;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class MainActivity extends Activity {
     private boolean isEditMode = false;
 
     private MenuItem editMenuItem;
+    private DBTemplates db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class MainActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        db = new DBTemplates(this);
     }
 
     @Override
@@ -63,7 +67,9 @@ public class MainActivity extends Activity {
                 CategoryElement element = (CategoryElement) listView.getAdapter().getItem(i);
                 element.setVisible(false);
             }
-            editMenuItem.setTitle("Edit");
+            if(editMenuItem != null) {
+                editMenuItem.setTitle("Edit");
+            }
         } else if (id == R.id.action_new) {
             final EditText input = new EditText(this);
 
@@ -77,6 +83,8 @@ public class MainActivity extends Activity {
                             ListView listView = (ListView) findViewById(R.id.categoriesListView);
                             CheckboxListAdapter adapter = (CheckboxListAdapter) listView.getAdapter();
                             adapter.add(new CategoryElement(value.toString(), isEditMode));
+
+                            db.addNewCategory(value.toString());
                         }
                     }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
@@ -109,13 +117,11 @@ public class MainActivity extends Activity {
                 for (int i = 0; i < listView.getAdapter().getCount();  i++) {
                     CategoryElement element = adapter.getItem(i);
                     if (element.isSelected()) {
-                        Log.d("delete", element.getName());
-                        //adapter.remove(element);
                         list.add(element);
+                        db.deleteCategory(element.getName());
                     }
                 }
                 adapter.remove(list);
-                //adapter.notifyDataSetChanged();
             }
         }
         return super.onOptionsItemSelected(item);
@@ -126,6 +132,8 @@ public class MainActivity extends Activity {
 
         private final String LOG_TAG = "myLogs";
         private ListView categoriesListView;
+
+        private DBTemplates db;
 
         public PlaceholderFragment() {
         }
@@ -158,6 +166,8 @@ public class MainActivity extends Activity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            db = new DBTemplates(getActivity());
         }
 
         @Override
@@ -167,18 +177,20 @@ public class MainActivity extends Activity {
 
             categoriesListView = (ListView) rootView.findViewById(R.id.categoriesListView);
 
-            //DBTemplates db = new DBTemplates(getActivity());
-            // final List<String> list = db.getAllCategories();
+            List<String> categoryNames = db.getAllCategories();
 
             final List<CategoryElement> list = new ArrayList<CategoryElement>();
-            list.add(new CategoryElement("Work"));
+            for(String name : categoryNames) {
+                list.add(new CategoryElement(name));
+            }
+            /*list.add(new CategoryElement("Work"));
             list.add(new CategoryElement("Shopping"));
             list.add(new CategoryElement("Education"));
             list.add(new CategoryElement("Sport"));
             list.add(new CategoryElement("Rest"));
             list.add(new CategoryElement("Entertainment"));
             list.add(new CategoryElement("Reading"));
-            list.add(new CategoryElement("Cooking"));
+            list.add(new CategoryElement("Cooking"));*/
 
             if (savedInstanceState != null) {
                 String mode = savedInstanceState.getString("mode");
