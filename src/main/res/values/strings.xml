@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TiLo</string>
+    <string name="timerVal">0h:0m:00s:000</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

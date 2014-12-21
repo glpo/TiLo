@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:id="@+id/trackingActivityLayout">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/categoryNameText"
+            android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/timerVal"
+            android:textSize="29sp"
+            android:id="@+id/timeText" android:layout_alignParentLeft="true" android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true" android:layout_marginTop="33dp" android:singleLine="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:id="@+id/stopBtn"
+            android:layout_alignTop="@+id/timeText" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" android:onClick="stopButtonHandler"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:id="@+id/startBtn"
+            android:layout_alignTop="@+id/stopBtn" android:layout_toLeftOf="@+id/stopBtn"
+            android:onClick="startButtonHandler"/>
+    <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/historyListView" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" android:layout_below="@+id/textView"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Tracking history:"
+            android:id="@+id/textView"
+            android:layout_below="@+id/timeText" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" android:layout_marginTop="26dp"/>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset Timer"
+                android:id="@+id/resetChBox" android:layout_alignParentTop="true" android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" android:layout_above="@+id/stopBtn"
+                android:layout_alignLeft="@+id/startBtn" android:layout_alignStart="@+id/startBtn"
+                android:checked="true"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/ssidTextView" android:layout_alignParentTop="true" android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" android:layout_alignBottom="@+id/resetChBox"
+                android:layout_toRightOf="@+id/timeText" android:layout_toEndOf="@+id/timeText" android:textSize="3dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/bssidTextView" android:layout_alignTop="@+id/stopBtn"
+                android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/timeText"
+                android:layout_toRightOf="@+id/timeText" android:layout_toEndOf="@+id/timeText" android:textSize="3dp"/>
+</RelativeLayout>
